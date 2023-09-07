@@ -14,8 +14,3 @@ jobs:
         run: ./build-jar.sh
       - name: Build flatlaf
         run: ./build-jar-flatlaf.sh
-      - uses: actions/upload-artifact@v3
-        with:
-          name: Package
-          path: *.jar
-
