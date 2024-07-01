@@ -82,9 +82,9 @@ public abstract class RegisterBlockWindow extends JPanel implements Observer {
                 new String[]{"Each register has a tool tip describing its usage convention", "Corresponding register number", valueTip}) {
         };
         updateRowHeight();
-        table.getColumnModel().getColumn(NAME_COLUMN).setPreferredWidth(50);
-        table.getColumnModel().getColumn(NUMBER_COLUMN).setPreferredWidth(25);
-        table.getColumnModel().getColumn(VALUE_COLUMN).setPreferredWidth(60);
+        table.getColumnModel().getColumn(NAME_COLUMN).setPreferredWidth(20);
+        table.getColumnModel().getColumn(NUMBER_COLUMN).setPreferredWidth(10);
+        table.getColumnModel().getColumn(VALUE_COLUMN).setPreferredWidth(150);
 
         // Display register values (String-ified) right-justified in mono font
         table.getColumnModel().getColumn(NAME_COLUMN).setCellRenderer(new RegisterCellRenderer(MonoRightCellRenderer.MONOSPACED_PLAIN_12POINT, SwingConstants.LEFT));

@@ -163,12 +163,6 @@ public class TextSegmentWindow extends JInternalFrame implements Observer {
         // prevents cells in row from being highlighted when user clicks on breakpoint checkbox
         table.setRowSelectionAllowed(false);
 
-        table.getColumnModel().getColumn(BREAK_COLUMN).setPreferredWidth(40);
-        table.getColumnModel().getColumn(ADDRESS_COLUMN).setPreferredWidth(80);
-        table.getColumnModel().getColumn(CODE_COLUMN).setPreferredWidth(80);
-        table.getColumnModel().getColumn(BASIC_COLUMN).setPreferredWidth(160);
-        table.getColumnModel().getColumn(SOURCE_COLUMN).setPreferredWidth(280);
-
         CodeCellRenderer codeStepHighlighter = new CodeCellRenderer();
         table.getColumnModel().getColumn(BASIC_COLUMN).setCellRenderer(codeStepHighlighter);
         table.getColumnModel().getColumn(SOURCE_COLUMN).setCellRenderer(codeStepHighlighter);
@@ -187,12 +181,28 @@ public class TextSegmentWindow extends JInternalFrame implements Observer {
             addProgramArgumentsPanel();
         }
 
+        setColumnMaxWidth(table.getColumnModel().getColumn(BREAK_COLUMN), columnNames[0]);
+        setColumnMaxWidth(table.getColumnModel().getColumn(ADDRESS_COLUMN), "0x00000000");
+        setColumnMaxWidth(table.getColumnModel().getColumn(CODE_COLUMN), "0x00000000");
+        table.getColumnModel().getColumn(BASIC_COLUMN).setPreferredWidth(160);
+        table.getColumnModel().getColumn(SOURCE_COLUMN).setPreferredWidth(280);
+
         deleteAsTextSegmentObserver();
         if (Globals.getSettings().getBooleanSetting(Settings.Bool.SELF_MODIFYING_CODE_ENABLED)) {
             addAsTextSegmentObserver();
         }
     }
 
+    /**
+     *
+     */
+    public void setColumnMaxWidth(TableColumn column, String referenceText) {
+        Component component = this; // column.getCellRenderer().getTableCellRendererComponent();
+        FontMetrics fontMetrics = component.getFontMetrics(component.getFont());
+        int width = fontMetrics.stringWidth(referenceText) + 10;
+        column.setMaxWidth(width);
+        column.setPreferredWidth(width);
+    }
     ////////////  Support for program arguments added DPS 17-July-2008 //////////////
 
     /**
