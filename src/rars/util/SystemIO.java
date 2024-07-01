@@ -193,7 +193,7 @@ public class SystemIO {
         if (Globals.getGui() != null && Globals.getSettings().getBooleanSetting(Settings.Bool.POPUP_SYSCALL_INPUT)) {
             String input = readStringInternal("0", "Enter a character value (syscall " + serviceNumber + ")", 1);
             if (input.length()>0)
-                returnValue = input.charAt(0); // truncate
+                returnValue = input.getBytes(StandardCharsets.UTF_8) [0] & 0xFF; // truncate
             else
                 returnValue = -1; // assume EOF on empty string
         } else {
@@ -201,7 +201,7 @@ public class SystemIO {
             byte[] input = new byte[1];
             int len = readFromFile(0, input, 1);
             if (len>0)
-                returnValue = input[0];
+                returnValue = input[0] & 0xFF;
             else
                 returnValue = -1;
         }

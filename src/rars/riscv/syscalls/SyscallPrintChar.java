@@ -5,6 +5,8 @@ import rars.riscv.AbstractSyscall;
 import rars.riscv.hardware.RegisterFile;
 import rars.util.SystemIO;
 
+import java.nio.charset.StandardCharsets;
+
 /*
 Copyright (c) 2003-2006,  Pete Sanderson and Kenneth Vollmar
 
@@ -40,8 +42,9 @@ public class SyscallPrintChar extends AbstractSyscall {
     }
 
     public void simulate(ProgramStatement statement) {
-        char t = (char) (RegisterFile.getValue("a0") & 0x000000ff);
-        SystemIO.printString(Character.toString(t));
+        byte[] t = new byte[1];
+        t[0] = (byte) RegisterFile.getValue("a0");
+        SystemIO.printString(new String(t, StandardCharsets.UTF_8));
     }
 
 }

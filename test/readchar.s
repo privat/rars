@@ -1,5 +1,5 @@
 #stdin:a b\n\n!
-#stdout:97a32 98b10\n10\n33!-1ÿ-1ÿ
+#stdout:97a32 98b10\n10\n33!-1�-1�
 
 .eqv PrintInt, 1
 .eqv ReadChar, 12
