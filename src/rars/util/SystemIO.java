@@ -102,7 +102,7 @@ public class SystemIO {
         } else {
             if (Globals.getSettings().getBooleanSetting(Settings.Bool.POPUP_SYSCALL_INPUT)) {
                 input = Globals.getGui().getMessagesPane().getInputString(prompt);
-            } else if (!Globals.getGui().getMessagesPane().getInputField().isEmpty()) {
+            } else if (!Globals.getGui().getMessagesPane().isInteractiveMode()) {
                 try {
                     input = getInputReaderFromGui().readLine();
                     if (input == null)
@@ -295,16 +295,16 @@ public class SystemIO {
         /// Read from STDIN file descriptor while using IDE - get input from Messages pane.
         if (fd == STDIN && Globals.getGui() != null) {
             //asks user for input in run pane
-            if (Globals.getGui().getMessagesPane().getInputField().isEmpty()) {
+            if (Globals.getGui().getMessagesPane().isInteractiveMode()) {
                 String input = Globals.getGui().getMessagesPane().getInputString(lengthRequested);
                 return readInBuffer(input, myBuffer);
             //takes input from input pane
             } else {
                 try {
-                    String input = "";
-                    for (int i = 0; i < myBuffer.length; i++) {
-                        input = input + (char) getInputReaderFromGui().read();
-                    }
+                    char[] chars = new char[lengthRequested];
+                    int len = getInputReaderFromGui().read(chars);
+                    if (len <= 0) return len;
+                    String input = new String(chars);
                     return readInBuffer(input, myBuffer);
                 } catch (IOException e) {
                     fileErrorString = "IO Exception on read from the input window of GUI";

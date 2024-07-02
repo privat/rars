@@ -83,7 +83,7 @@ public class VenusUI extends JFrame {
     private JMenuItem fileNew, fileOpen, fileClose, fileCloseAll, fileSave, fileSaveAs, fileSaveAll, fileDumpMemory, fileExit;
     private JMenuItem editUndo, editRedo, editCut, editCopy, editPaste, editFindReplace, editSelectAll;
     private JMenuItem runGo, runStep, runBackstep, runReset, runAssemble, runStop, runPause, runClearBreakpoints, runToggleBreakpoints;
-    private JCheckBoxMenuItem settingsLabel, settingsPopupInput, settingsValueDisplayBase, settingsAddressDisplayBase,
+    private JCheckBoxMenuItem settingsLabel, settingsValueDisplayBase, settingsAddressDisplayBase,
             settingsExtended, settingsAssembleOnOpen, settingsAssembleAll, settingsAssembleOpen, settingsWarningsAreErrors,
             settingsStartAtMain, settingsProgramArguments, settingsSelfModifyingCode, settingsRV64, settingsDeriveCurrentWorkingDirectory;
     private JMenuItem settingsExceptionHandler, settingsEditor, settingsHighlighting, settingsMemoryConfiguration;
@@ -106,7 +106,7 @@ public class VenusUI extends JFrame {
     private Action editCutAction, editCopyAction, editPasteAction, editFindReplaceAction, editSelectAllAction;
     private Action runAssembleAction, runGoAction, runStepAction, runBackstepAction, runResetAction,
             runStopAction, runPauseAction, runClearBreakpointsAction, runToggleBreakpointsAction;
-    private Action settingsLabelAction, settingsPopupInputAction, settingsValueDisplayBaseAction, settingsAddressDisplayBaseAction,
+    private Action settingsLabelAction, settingsValueDisplayBaseAction, settingsAddressDisplayBaseAction,
             settingsExtendedAction, settingsAssembleOnOpenAction, settingsAssembleOpenAction, settingsAssembleAllAction,
             settingsWarningsAreErrorsAction, settingsStartAtMainAction, settingsProgramArgumentsAction,
             settingsExceptionHandlerAction, settingsEditorAction, settingsHighlightingAction, settingsMemoryConfigurationAction,
@@ -411,9 +411,6 @@ public class VenusUI extends JFrame {
                     System.out.println("ExecutePane reference 2");
                 }
             };
-            settingsPopupInputAction = new SettingsAction("Popup dialog for input syscalls (5,6,7,8,12)",
-                    "If set, use popup dialog for input syscalls (5,6,7,8,12) instead of cursor in Run I/O window",
-                    Settings.Bool.POPUP_SYSCALL_INPUT);
 
             settingsValueDisplayBaseAction = new SettingsAction("Values displayed in hexadecimal",
                     "Toggle between hexadecimal and decimal display of memory/register values",
@@ -613,8 +610,6 @@ public class VenusUI extends JFrame {
 
         settingsLabel = new JCheckBoxMenuItem(settingsLabelAction);
         settingsLabel.setSelected(Globals.getSettings().getBooleanSetting(Settings.Bool.LABEL_WINDOW_VISIBILITY));
-        settingsPopupInput = new JCheckBoxMenuItem(settingsPopupInputAction);
-        settingsPopupInput.setSelected(Globals.getSettings().getBooleanSetting(Settings.Bool.POPUP_SYSCALL_INPUT));
         settingsValueDisplayBase = new JCheckBoxMenuItem(settingsValueDisplayBaseAction);
         settingsValueDisplayBase.setSelected(Globals.getSettings().getBooleanSetting(Settings.Bool.DISPLAY_VALUES_IN_HEX));//mainPane.getExecutePane().getValueDisplayBaseChooser().isSelected());
         // Tell the corresponding JCheckBox in the Execute Pane about me -- it has already been created.
@@ -650,7 +645,6 @@ public class VenusUI extends JFrame {
 
         settings.add(settingsLabel);
         settings.add(settingsProgramArguments);
-        settings.add(settingsPopupInput);
         settings.add(settingsAddressDisplayBase);
         settings.add(settingsValueDisplayBase);
         settings.addSeparator();

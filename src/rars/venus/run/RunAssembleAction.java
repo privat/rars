@@ -138,6 +138,7 @@ public class RunAssembleAction extends GuiAction {
                 mainUI.setReset(true);
                 mainUI.setStarted(false);
                 mainUI.getMainPane().setSelectedComponent(executePane);
+                mainUI.getMessagesPane().selectRunMessageTab();
 
                 // Aug. 24, 2005 Ken Vollmar
                 SystemIO.resetFiles();  // Ensure that I/O "file descriptors" are initialized for a new program run

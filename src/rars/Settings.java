@@ -138,6 +138,10 @@ public class Settings extends Observable {
          */
         POPUP_SYSCALL_INPUT("PopupSyscallInput", false),
         /**
+         * Flag to controg whether or not the run I/O mode is batch (true) or interactive (false).
+         */
+        BATCH_IOMODE("BatchIOMode", false),
+        /**
          * Flag to control whether or not to use generic text editor instead of language-aware styled editor
          */
         GENERIC_TEXT_EDITOR("GenericTextEditor", false),
