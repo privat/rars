@@ -657,22 +657,15 @@ public class Memory extends Observable {
         } else if (inTextSegment(address)) {
             // Burch Mod (Jan 2013): replace throw with calls to getStatementNoNotify & getBinaryStatement
             // DPS adaptation 5-Jul-2013: either throw or call, depending on setting
-            if (Globals.getSettings().getBooleanSetting(Settings.Bool.SELF_MODIFYING_CODE_ENABLED)) {
-                if(address%4+length > 4){
-                    // TODO: add checks for halfword load not aligned to halfword boundary
-                    throw new AddressErrorException(
-                            "Load address not aligned to word boundary ",
-                            SimulationException.LOAD_ADDRESS_MISALIGNED, address);
-                }
-                ProgramStatement stmt = getStatementNoNotify((address/4)*4);
-                // TODO: maybe find a way to make the bit manipulation more clear
-                // It just selects the right bytes from the word loaded
-                value = stmt == null ? 0 : length == 4 ? stmt.getBinaryStatement() : stmt.getBinaryStatement()>>(8*(address%4))&((1<<length*8)-1);
-            } else {
+            if(address%4+length > 4){
+                // TODO: add checks for halfword load not aligned to halfword boundary
                 throw new AddressErrorException(
-                        "Cannot read directly from text segment!",
-                        SimulationException.LOAD_ACCESS_FAULT, address);
+                        "Load address not aligned to word boundary ", SimulationException.LOAD_ADDRESS_MISALIGNED, address);
             }
+            ProgramStatement stmt = getStatementNoNotify((address/4)*4);
+            // TODO: maybe find a way to make the bit manipulation more clear
+            // It just selects the right bytes from the word loaded
+            value = stmt == null ? 0 : length == 4 ? stmt.getBinaryStatement() : stmt.getBinaryStatement()>>(8*(address%4))&((1<<length*8)-1);
         } else {
             // falls outside addressing range
             throw new AddressErrorException("address out of range ",
